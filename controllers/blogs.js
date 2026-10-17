@@ -26,7 +26,7 @@ router.post('/', tokenExtractor, async (req, res) => {
 
 router.delete('/:id', tokenExtractor, blogFinder, async (req, res) => {
   if (req.blog.userId !== req.decodedToken.id) {
-    return res.status(401).json({ error: ['unauthorized'] })
+    return res.status(403).json({ error: ['only the creator can delete a blog'] })
   }
   await req.blog.destroy()
   res.status(204).end()

@@ -1,0 +1,45 @@
+### log in as Luka
+# @name lukaLogin
+POST http://localhost:3001/api/login
+Content-Type: application/json
+
+{
+  "username": "luka@example.com",
+  "password": "secret"
+}
+
+### log in as Super Doper Dog
+# @name dogLogin
+POST http://localhost:3001/api/login
+Content-Type: application/json
+
+{
+  "username": "superdoperdog@example.com",
+  "password": "secret"
+}
+
+### create a blog as Super Doper Dog
+POST http://localhost:3001/api/blogs
+Content-Type: application/json
+Authorization: Bearer {{dogLogin.response.body.token}}
+
+{
+  "author": "Super Doper Dog",
+  "url": "https://example.com/dog-blog",
+  "title": "Dogs prefer Postgres"
+}
+
+### Luka deletes Dog's blog (403 / 401 — not the owner)
+DELETE http://localhost:3001/api/blogs/5
+Authorization: Bearer {{lukaLogin.response.body.token}}
+
+### delete without a token (401 token missing)
+DELETE http://localhost:3001/api/blogs/5
+
+### delete a blog that doesn't exist (404)
+DELETE http://localhost:3001/api/blogs/9999
+Authorization: Bearer {{dogLogin.response.body.token}}
+
+### Dog deletes own blog (204)
+DELETE http://localhost:3001/api/blogs/5
+Authorization: Bearer {{dogLogin.response.body.token}}
