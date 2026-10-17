@@ -1,0 +1,51 @@
+### create a user (password is sent but ignored)
+POST http://localhost:3001/api/users
+Content-Type: application/json
+
+{
+  "username": "lukaong",
+  "name": "Luka Ong",
+  "password": "secret"
+}
+
+### create another user
+POST http://localhost:3001/api/users
+Content-Type: application/json
+
+{
+  "username": "superdog",
+  "name": "Super Luka"
+}
+
+### list all users
+GET http://localhost:3001/api/users
+
+### one user by id
+GET http://localhost:3001/api/users/1
+
+### user that doesn't exist (404)
+GET http://localhost:3001/api/users/9999
+
+### change username (the URL uses the CURRENT username)
+PUT http://localhost:3001/api/users/superdog
+Content-Type: application/json
+
+{
+  "username": "superdoperdog"
+}
+
+### change name
+PUT http://localhost:3001/api/users/superdoperdog
+Content-Type: application/json
+
+{
+  "name": "Super Doper Dog"
+}
+
+### PUT unknown username (404)
+PUT http://localhost:3001/api/users/nobody
+Content-Type: application/json
+
+{
+  "name": "Ghost"
+}

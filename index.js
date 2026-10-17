@@ -6,10 +6,13 @@ const { connectToDatabase } = require('./util/db')
 const { unknownEndpoint, errorHandler } = require('./util/middleware')
 
 const blogsRouter = require('./controllers/blogs')
+const usersRouter = require('./controllers/users')
 
 app.use(express.json())
 
 app.use('/api/blogs', blogsRouter)
+app.use('/api/users', usersRouter)
+
 app.use(unknownEndpoint)
 app.use(errorHandler)
 
