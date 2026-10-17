@@ -1,0 +1,57 @@
+### log in
+# @name login
+POST http://localhost:3001/api/login
+Content-Type: application/json
+
+{
+  "username": "luka@example.com",
+  "password": "secret"
+}
+
+### create a blog as the logged-in user
+POST http://localhost:3001/api/blogs
+Content-Type: application/json
+Authorization: Bearer {{login.response.body.token}}
+
+{
+  "author": "Luka Ong",
+  "url": "https://lukaong.com/articles/microservices.html",
+  "title": "Microservices"
+}
+
+### no token (401)
+POST http://localhost:3001/api/blogs
+Content-Type: application/json
+
+{
+  "url": "https://example.com/no-token",
+  "title": "No token"
+}
+
+### broken token (401)
+POST http://localhost:3001/api/blogs
+Content-Type: application/json
+Authorization: Bearer abc.def.ghi
+
+{
+  "url": "https://example.com/bad-token",
+  "title": "Bad token"
+}
+
+### wrong password (401)
+POST http://localhost:3001/api/login
+Content-Type: application/json
+
+{
+  "username": "luka@example.com",
+  "password": "wrong"
+}
+
+### unknown user (401)
+POST http://localhost:3001/api/login
+Content-Type: application/json
+
+{
+  "username": "nobody@example.com",
+  "password": "secret"
+}
