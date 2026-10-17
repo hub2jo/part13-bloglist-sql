@@ -49,3 +49,62 @@ Content-Type: application/json
 {
   "name": "Ghost"
 }
+
+### convert an old username to an email
+PUT http://localhost:3001/api/users/lukaong
+Content-Type: application/json
+
+{
+  "username": "luka@example.com"
+}
+
+###
+PUT http://localhost:3001/api/users/superdoperdog
+Content-Type: application/json
+
+{
+  "username": "superdoperdog@example.com"
+}
+
+### not an email (400)
+POST http://localhost:3001/api/users
+Content-Type: application/json
+
+{
+  "username": "testnoemail",
+  "name": "Mo email"
+}
+
+### duplicate email (400) — send after the valid one
+POST http://localhost:3001/api/users
+Content-Type: application/json
+
+{
+  "username": "luka@example.com",
+  "name": "Someone Else"
+}
+
+### two problems at once (400, two messages)
+POST http://localhost:3001/api/users
+Content-Type: application/json
+
+{
+  "username": "nope",
+  "name": ""
+}
+
+### username missing (400)
+POST http://localhost:3001/api/users
+Content-Type: application/json
+
+{
+  "name": "No Username"
+}
+
+### change username to a non-email (400)
+PUT http://localhost:3001/api/users/luka@example.com
+Content-Type: application/json
+
+{
+  "username": "not-an-email"
+}

@@ -14,19 +14,40 @@ Blog.init({
   },
   url: {
     type: DataTypes.TEXT,
-    allowNull: false
+    allowNull: false,
+    validate: {
+      notNull: {
+        msg: 'URL is required'
+      },
+      isUrl: {
+        msg: 'URL must be a valid URL'
+      }
+    }
   },
   title: {
     type: DataTypes.TEXT,
-    allowNull: false
+    allowNull: false,
+    validate: {
+      notNull: {
+        msg: 'Title is required'
+      },
+      notEmpty: {
+        msg: 'Title cannot be empty'
+      }
+    }
   },
   likes: {
     type: DataTypes.INTEGER,
     defaultValue: 0,
     allowNull: false,
     validate: {
-      min: 0,
-      isInt: true
+      min: { args: [0], msg: 'Likes cannot be negative' },
+      isInt: {
+        msg: 'Likes must be an integer'
+      },
+      notNull: {
+        msg: 'Likes is required'
+      }
     }
   }
 }, {
