@@ -1,0 +1,17 @@
+### all blogs (no WHERE)
+GET http://localhost:3001/api/blogs
+
+### search lowercase
+GET http://localhost:3001/api/blogs?search=sql
+
+### search uppercase — same result
+GET http://localhost:3001/api/blogs?search=SQL
+
+### search mixed case
+GET http://localhost:3001/api/blogs?search=MicroSERVICES
+
+### no match → empty array
+GET http://localhost:3001/api/blogs?search=kubernetes
+
+### empty search → all blogs
+GET http://localhost:3001/api/blogs?search=
