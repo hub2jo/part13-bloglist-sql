@@ -15,3 +15,18 @@ GET http://localhost:3001/api/blogs?search=kubernetes
 
 ### empty search → all blogs
 GET http://localhost:3001/api/blogs?search=
+
+### author only
+GET http://localhost:3001/api/blogs?search=ong
+
+### title only
+GET http://localhost:3001/api/blogs?search=micro
+
+### author only (plural "masters" is not in any title)
+GET http://localhost:3001/api/blogs?search=masters
+
+### both fields, uppercase
+GET http://localhost:3001/api/blogs?search=LUKA
+
+### no match
+GET http://localhost:3001/api/blogs?search=kubernetes

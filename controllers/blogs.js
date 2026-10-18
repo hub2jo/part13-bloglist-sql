@@ -15,9 +15,11 @@ router.get('/', async (req, res) => {
   const where = {}
   
   if (req.query.search) {
-    where.title = {
-      [Op.iLike]: `%${req.query.search}%` 
-    }
+    const searchPatten = `%${req.query.search}%`
+    where[Op.or] = [
+      { title: { [Op.iLike]: searchPatten } },
+      { author: { [Op.iLike]: searchPatten } }
+    ]
   }
 
   const blogs = await Blog.findAll({
