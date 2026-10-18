@@ -10,13 +10,22 @@ const blogsRouter = require('./controllers/blogs')
 const usersRouter = require('./controllers/users')
 const loginRouter = require('./controllers/login')
 const authorsRouter = require('./controllers/authors')
+const resetRouter = require('./controllers/reset')
 
 app.use(express.json())
+
+app.get('/', (req, res) => {
+  res.status(200).send('ok')
+})
 
 app.use('/api/blogs', blogsRouter)
 app.use('/api/users', usersRouter)
 app.use('/api/login', loginRouter)
 app.use('/api/authors', authorsRouter)
+
+if (process.env.TESTING === 'true') {
+  app.use('/api/reset', resetRouter)
+}
 
 app.use(unknownEndpoint)
 app.use(errorHandler)
