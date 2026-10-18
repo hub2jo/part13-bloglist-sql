@@ -1,0 +1,17 @@
+###
+PUT http://localhost:3001/api/blogs/1
+Content-Type: application/json
+
+{ "likes": 12 }
+
+###
+PUT http://localhost:3001/api/blogs/4
+Content-Type: application/json
+
+{ "likes": 7 }
+
+### sorted by likes, most first
+GET http://localhost:3001/api/blogs
+
+### search + sorting together
+GET http://localhost:3001/api/blogs?search=masters
