@@ -1,0 +1,2 @@
+### authors with blog count and total likes
+GET http://localhost:3001/api/authors
