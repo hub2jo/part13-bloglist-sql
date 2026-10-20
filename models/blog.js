@@ -49,6 +49,24 @@ Blog.init({
         msg: 'Likes is required'
       }
     }
+  },
+  year: {
+    type: DataTypes.INTEGER,
+    validate: {
+      isInt: {
+        msg: 'Year must be an integer'
+      },
+      min: {
+        args: [1991],
+        msg: 'Year must be greater than or equal to 1991'
+      },
+      notInFuture(value) {
+        const currentYear = new Date().getFullYear()
+        if (value > currentYear) {
+          throw new Error(`Year cannot be in the future. Current year is ${currentYear}.`)
+        }
+      }
+    }
   }
 }, {
   sequelize,

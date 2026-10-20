@@ -1,0 +1,76 @@
+### log in
+# @name login
+POST http://localhost:3001/api/login
+Content-Type: application/json
+
+{
+  "username": "luka@example.com",
+  "password": "secret"
+}
+
+### valid year
+POST http://localhost:3001/api/blogs
+Content-Type: application/json
+Authorization: Bearer {{login.response.body.token}}
+
+{
+  "author": "Joel Spolsky",
+  "url": "https://www.joelonsoftware.com/2000/08/09/the-joel-test-12-steps-to-better-code/",
+  "title": "The Joel Test",
+  "year": 2000
+}
+
+### no year (allowed, year stays null)
+POST http://localhost:3001/api/blogs
+Content-Type: application/json
+Authorization: Bearer {{login.response.body.token}}
+
+{
+  "author": "Anonymous",
+  "url": "https://example.com/no-year",
+  "title": "A blog without a year"
+}
+
+### too early (400)
+POST http://localhost:3001/api/blogs
+Content-Type: application/json
+Authorization: Bearer {{login.response.body.token}}
+
+{
+  "url": "https://example.com/too-early",
+  "title": "Before the web",
+  "year": 1990
+}
+
+### in the future (400)
+POST http://localhost:3001/api/blogs
+Content-Type: application/json
+Authorization: Bearer {{login.response.body.token}}
+
+{
+  "url": "https://example.com/future",
+  "title": "From the future",
+  "year": 2099
+}
+
+### not an integer (400)
+POST http://localhost:3001/api/blogs
+Content-Type: application/json
+Authorization: Bearer {{login.response.body.token}}
+
+{
+  "url": "https://example.com/decimal",
+  "title": "Half a year",
+  "year": 2010.5
+}
+
+### several problems at once (400, all messages)
+POST http://localhost:3001/api/blogs
+Content-Type: application/json
+Authorization: Bearer {{login.response.body.token}}
+
+{
+  "url": "not a url",
+  "title": "",
+  "year": 1900
+}
