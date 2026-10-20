@@ -1,0 +1,44 @@
+### 1. create a user (database is empty after the migration)
+POST http://localhost:3001/api/users
+Content-Type: application/json
+
+{
+  "username": "luka@example.com",
+  "name": "Luka Ong",
+  "password": "secret"
+}
+
+### 2. log in
+# @name login
+POST http://localhost:3001/api/login
+Content-Type: application/json
+
+{
+  "username": "luka@example.com",
+  "password": "secret"
+}
+
+### 3. create a blog as the logged-in user
+POST http://localhost:3001/api/blogs
+Content-Type: application/json
+Authorization: Bearer {{login.response.body.token}}
+
+{
+  "author": "Luka the greatest sql developer",
+  "url": "https://luka.sql.com/articles/bestsql.html",
+  "title": "SQL is the best"
+}
+
+### 4. list blogs
+GET http://localhost:3001/api/blogs
+
+### 5. like the blog
+PUT http://localhost:3001/api/blogs/2
+Content-Type: application/json
+
+{
+  "likes": 15
+}
+
+### 6. list 
+GET http://localhost:3001/api/blogs
