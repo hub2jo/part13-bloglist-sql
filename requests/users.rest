@@ -3,8 +3,8 @@ POST http://localhost:3001/api/users
 Content-Type: application/json
 
 {
-  "username": "lukaong",
-  "name": "Luka Ong",
+  "username": "lukathegreat@example.com",
+  "name": "Luka The Great",
   "password": "secret"
 }
 
@@ -13,7 +13,7 @@ POST http://localhost:3001/api/users
 Content-Type: application/json
 
 {
-  "username": "superdog",
+  "username": "superdog@example.com",
   "name": "Super Luka"
 }
 

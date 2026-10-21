@@ -4,7 +4,7 @@ POST http://localhost:3001/api/login
 Content-Type: application/json
 
 {
-  "username": "luka@example.com",
+  "username": "superdog@example.com",
   "password": "secret"
 }
 
@@ -14,9 +14,9 @@ Content-Type: application/json
 Authorization: Bearer {{login.response.body.token}}
 
 {
-  "author": "Luka Ong",
-  "url": "https://lukaong.com/articles/microservices.html",
-  "title": "Microservices"
+  "author": "Super Doper Dog",
+  "url": "https://superdoperdog.com/articles/lalaland.html",
+  "title": "fable land stories"
 }
 
 ### no token (401)
