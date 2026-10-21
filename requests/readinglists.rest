@@ -58,7 +58,14 @@ PUT http://localhost:3001/api/readinglists/1
 Content-Type: application/json
 Authorization: Bearer {{ownerLogin.response.body.token}}
 
-{}
-
-### the owner's reading list
+### whole reading list
 GET http://localhost:3001/api/users/1
+
+### only read
+GET http://localhost:3001/api/users/1?read=true
+
+### only unread
+GET http://localhost:3001/api/users/1?read=false
+
+### invalid value → treated as no filter
+GET http://localhost:3001/api/users/1?read=maybe
