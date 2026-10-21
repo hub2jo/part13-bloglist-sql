@@ -12,12 +12,20 @@ ReadingList.init({
   userId: {
     type: DataTypes.INTEGER,
     allowNull: false,
-    references: { model: 'users', key: 'id' }
+    references: { model: 'users', key: 'id' },
+    unique: {
+      name: 'reading_lists_user_id_blog_id_unique',
+      msg: 'blog is already in the reading list'
+    }
   },
   blogId: {
     type: DataTypes.INTEGER,
     allowNull: false,
-    references: { model: 'blogs', key: 'id' }
+    references: { model: 'blogs', key: 'id' },
+    unique: {
+      name: 'reading_lists_user_id_blog_id_unique',
+      msg: 'blog is already in the reading list'
+    }
   },
   read: {
     type: DataTypes.BOOLEAN,
