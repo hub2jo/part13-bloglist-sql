@@ -30,7 +30,10 @@ ReadingList.init({
   read: {
     type: DataTypes.BOOLEAN,
     allowNull: false,
-    defaultValue: false
+    defaultValue: false,
+    validate: {
+      notNull: { msg: 'read must be true or false' }
+    }
   }
 }, {
   sequelize,

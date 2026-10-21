@@ -1,0 +1,64 @@
+### log in as the owner
+# @name ownerLogin
+POST http://localhost:3001/api/login
+Content-Type: application/json
+
+{
+  "username": "luka@example.com",
+  "password": "secret"
+}
+
+### log in as another user
+# @name otherLogin
+POST http://localhost:3001/api/login
+Content-Type: application/json
+
+{
+  "username": "superdoperdog@example.com",
+  "password": "secret"
+}
+
+### mark as read (owner)
+PUT http://localhost:3001/api/readinglists/1
+Content-Type: application/json
+Authorization: Bearer {{ownerLogin.response.body.token}}
+
+{
+  "read": true
+}
+
+### someone else's entry (401)
+PUT http://localhost:3001/api/readinglists/1
+Content-Type: application/json
+Authorization: Bearer {{otherLogin.response.body.token}}
+
+{
+  "read": false
+}
+
+### no token (401)
+PUT http://localhost:3001/api/readinglists/1
+Content-Type: application/json
+
+{
+  "read": true
+}
+
+### entry that doesn't exist (404)
+PUT http://localhost:3001/api/readinglists/99999
+Content-Type: application/json
+Authorization: Bearer {{ownerLogin.response.body.token}}
+
+{
+  "read": true
+}
+
+### read missing (400)
+PUT http://localhost:3001/api/readinglists/1
+Content-Type: application/json
+Authorization: Bearer {{ownerLogin.response.body.token}}
+
+{}
+
+### the owner's reading list
+GET http://localhost:3001/api/users/1
