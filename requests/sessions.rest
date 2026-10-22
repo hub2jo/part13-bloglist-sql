@@ -1,0 +1,36 @@
+### 1. log in
+# @name login
+POST http://localhost:3001/api/login
+Content-Type: application/json
+
+{
+  "username": "luka@example.com",
+  "password": "secret"
+}
+
+### 2. use the token (works)
+POST http://localhost:3001/api/blogs
+Content-Type: application/json
+Authorization: Bearer {{login.response.body.token}}
+
+{
+  "url": "https://example.com/session-1",
+  "title": "Posted with an active session"
+}
+
+### 3. log out (204)
+DELETE http://localhost:3001/api/logout
+Authorization: Bearer {{login.response.body.token}}
+
+### 4. use the same token again (401: session expired)
+POST http://localhost:3001/api/blogs
+Content-Type: application/json
+Authorization: Bearer {{login.response.body.token}}
+
+{
+  "url": "https://example.com/session-2",
+  "title": "Should fail after logout"
+}
+
+### 5. log out without a token (401)
+DELETE http://localhost:3001/api/logout

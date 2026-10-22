@@ -38,6 +38,11 @@ User.init({
         msg: 'Name cannot be empty'
       }
     }
+  },
+  disabled: {
+    type: DataTypes.BOOLEAN,
+    AllowNull: false,
+    defaultValue: false
   }
 }, {
   sequelize,
